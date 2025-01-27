@@ -3,17 +3,19 @@ import { Col, Row } from "react-bootstrap";
 // import products from "../products";
 import ProductCard from "../components/ProductCard";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 
 const HomePage = () => {
   const { data: products, isLoading, isError } = useGetProductsQuery();
   return (
     <>
       {isLoading ? (
-        <>
-          <h2>Loading...</h2>
-        </>
+        <Loader />
       ) : isError ? (
-        <div>{isError?.data?.message || isError?.error}</div>
+        <Message variant="danger">
+          {isError?.data?.message || isError?.error}
+        </Message>
       ) : (
         <>
           <h1>Latest Products</h1>
